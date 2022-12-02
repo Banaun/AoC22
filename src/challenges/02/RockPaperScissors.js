@@ -109,6 +109,9 @@ function RockPaperScissors() {
   return (
     <>
       <h4>
+        See the <a href='/questions/02/question02.txt'>question</a>
+      </h4>
+      <h4>
         Upload a .txt-file with the{' '}
         <a href='/puzzle-inputs/02/input02.txt'>puzzle input</a>
       </h4>

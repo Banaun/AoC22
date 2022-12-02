@@ -68,6 +68,9 @@ function CalorieCounter() {
   return (
     <>
       <h4>
+        See the <a href='/questions/01/question01.txt'>question</a>
+      </h4>
+      <h4>
         Upload a .txt-file with the{' '}
         <a href='/puzzle-inputs/01/input01.txt'>puzzle input</a>
       </h4>
