@@ -22,20 +22,26 @@ button {
   border: 3px solid var(--color-shadow, currentColor);
 }
 
-.main-container {
+.main-container,
+.day-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
+.day-container {
+  margin-top: 2rem;
+}
+
+.day-container > h2,
+h4 {
+  line-height: 0;
+}
+
 .main-title,
 .title {
   text-align: center;
-}
-
-.title {
-  margin-top: 2rem;
 }
 
 .input-wrapper,

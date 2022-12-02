@@ -29,11 +29,15 @@ function RockPaperScissors() {
     fileReader = new FileReader();
     fileReader.onloadend = handleFileRead;
 
-    if (file.type.match(textType)) {
-      setError('');
-      fileReader.readAsText(file);
+    if (file.size < 100000) {
+      if (file.type.match(textType)) {
+        setError('');
+        fileReader.readAsText(file);
+      } else {
+        setError('Invalid file type!');
+      }
     } else {
-      setError('Invalid file type');
+      setError('File is too big!');
     }
   };
 
@@ -51,7 +55,6 @@ function RockPaperScissors() {
       let strategyGuideArr = fileContent.split(/\r?\n/);
       let firstScore = 0;
       let secondScore = 0;
-      console.log(strategyGuideArr);
 
       for (let i = 0; i < strategyGuideArr.length; i++) {
         switch (strategyGuideArr[i]) {
@@ -92,7 +95,6 @@ function RockPaperScissors() {
             secondScore += win + X;
             break;
           default:
-            console.log('default case', strategyGuideArr[i]);
             break;
         }
       }
@@ -106,6 +108,10 @@ function RockPaperScissors() {
 
   return (
     <>
+      <h4>
+        Upload a .txt-file with the{' '}
+        <a href='/puzzle-inputs/02/input02.txt'>puzzle input</a>
+      </h4>
       <div className='input-wrapper'>
         <div>
           <input type='file' accept='.txt' onChange={handleChange} />

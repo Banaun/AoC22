@@ -15,11 +15,15 @@ function CalorieCounter() {
     fileReader = new FileReader();
     fileReader.onloadend = handleFileRead;
 
-    if (file.type.match(textType)) {
-      setError('');
-      fileReader.readAsText(file);
+    if (file.size < 100000) {
+      if (file.type.match(textType)) {
+        setError('');
+        fileReader.readAsText(file);
+      } else {
+        setError('Invalid file type!');
+      }
     } else {
-      setError('Invalid file type');
+      setError('File is too big!');
     }
   };
 
@@ -63,6 +67,10 @@ function CalorieCounter() {
 
   return (
     <>
+      <h4>
+        Upload a .txt-file with the{' '}
+        <a href='/puzzle-inputs/01/input01.txt'>puzzle input</a>
+      </h4>
       <div className='input-wrapper'>
         <div>
           <input type='file' accept='.txt' onChange={handleChange} />
@@ -73,8 +81,8 @@ function CalorieCounter() {
       </div>
       {firstAnswer ? (
         <div className='output-wrapper'>
-          <h4>Answer Part 1: {firstAnswer} calories</h4>
-          <h4>Answer Part 2: {secondAnswer} calories</h4>
+          <h4>Answer Part 1: {firstAnswer}</h4>
+          <h4>Answer Part 2: {secondAnswer}</h4>
         </div>
       ) : error ? (
         <div className='error-wrapper'>
