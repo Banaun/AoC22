@@ -1,11 +1,21 @@
 import CalorieCounter from './challenges/01/CalorieCounter';
 import RockPaperScissors from './challenges/02/RockPaperScissors';
 import Snowflakes from './components/Snowflakes';
+import GitHubIcon from './images/github-icon.png';
 
 function App() {
   return (
     <div className='main-container'>
       <Snowflakes />
+      <div className='repo-container'>
+        <a
+          href='https://github.com/Banaun/aoc22'
+          target='_blank'
+          rel='noreferrer'
+        >
+          <img src={GitHubIcon} alt='link to repo'></img>
+        </a>
+      </div>
       <div>
         <h1 className='main-title'>Advent of Code 2022</h1>
         <div className='day-container'>
