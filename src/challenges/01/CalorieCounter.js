@@ -2,9 +2,8 @@ import { useState } from 'react';
 
 function CalorieCounter() {
   const [fileContent, setFileContent] = useState();
-  const [mostCalories, setMostCalories] = useState(0);
-  const [secondMostCalories, setSecondMostCalories] = useState(0);
-  const [thirdMostCalories, setThirdMostCalories] = useState(0);
+  const [firstAnswer, setFirstAnswer] = useState(0);
+  const [secondAnswer, setSecondAnswer] = useState(0);
   const [error, setError] = useState('');
 
   const textType = /text.*/;
@@ -55,9 +54,10 @@ function CalorieCounter() {
         }
       }
 
-      setMostCalories(topThreeCalories[0]);
-      setSecondMostCalories(topThreeCalories[1]);
-      setThirdMostCalories(topThreeCalories[2]);
+      setFirstAnswer(topThreeCalories[0]);
+      setSecondAnswer(
+        topThreeCalories[0] + topThreeCalories[1] + topThreeCalories[2]
+      );
     }
   };
 
@@ -71,14 +71,10 @@ function CalorieCounter() {
           </button>
         </div>
       </div>
-      {mostCalories ? (
+      {firstAnswer ? (
         <div className='output-wrapper'>
-          <h4>Most calories: {mostCalories}</h4>
-          <h4>Second most calories: {secondMostCalories}</h4>
-          <h4>Third most calories: {thirdMostCalories}</h4>
-          <h3>
-            Total: {mostCalories + secondMostCalories + thirdMostCalories}
-          </h3>
+          <h4>Answer Part 1: {firstAnswer} calories</h4>
+          <h4>Answer Part 2: {secondAnswer} calories</h4>
         </div>
       ) : error ? (
         <div className='error-wrapper'>
