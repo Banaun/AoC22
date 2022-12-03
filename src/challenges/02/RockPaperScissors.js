@@ -41,7 +41,7 @@ function RockPaperScissors() {
     }
   };
 
-  const handleFileRead = (e) => {
+  const handleFileRead = () => {
     let content = fileReader.result;
     setFileContent(content);
   };
