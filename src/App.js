@@ -1,6 +1,7 @@
 import CalorieCounter from './challenges/01/CalorieCounter';
 import RockPaperScissors from './challenges/02/RockPaperScissors';
 import RucksackReorganization from './challenges/03/RucksackReorganization';
+import CampCleanup from './challenges/04/CampCleanup';
 import Snowflakes from './components/Snowflakes';
 import GitHubIcon from './images/github-icon.png';
 
@@ -30,6 +31,10 @@ function App() {
         <div className='day-container'>
           <h2 className='title'>--- Day 3: Rucksack Reorganization ---</h2>
           <RucksackReorganization />
+        </div>
+        <div className='day-container'>
+          <h2 className='title'>--- Day 4: Camp Cleanup ---</h2>
+          <CampCleanup />
         </div>
       </div>
     </div>

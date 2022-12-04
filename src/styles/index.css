@@ -81,7 +81,8 @@ h4 {
 }
 
 .error-wrapper {
-  color: #cc231e;
+  color: #a80a05fd;
+  font-weight: bold;
 }
 
 .snowflake {

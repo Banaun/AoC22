@@ -1,12 +1,11 @@
 import { useState } from 'react';
+import FileUploader from '../../components/FileUploader';
 
 function RockPaperScissors() {
   const [fileContent, setFileContent] = useState();
   const [firstAnswer, setFirstAnswer] = useState();
   const [secondAnswer, setSecondAnswer] = useState();
   const [error, setError] = useState('');
-
-  const textType = /text.*/;
 
   // A & X = Rock (Part One)
   const X = 1;
@@ -22,33 +21,11 @@ function RockPaperScissors() {
   // X = loss (Part Two)
   const loss = 0;
 
-  let fileReader;
-
-  const handleChange = (e) => {
-    let file = e.target.files[0];
-    fileReader = new FileReader();
-    fileReader.onloadend = handleFileRead;
-
-    if (file.size < 100000) {
-      if (file.type.match(textType)) {
-        setError('');
-        fileReader.readAsText(file);
-      } else {
-        setError('Invalid file type!');
-      }
-    } else {
-      setError('File is too big!');
-    }
-  };
-
-  const handleFileRead = () => {
-    let content = fileReader.result;
-    setFileContent(content);
-  };
-
   const calculateScore = () => {
     if (!fileContent) {
-      setError('No file chosen');
+      if (!error) {
+        setError('No file chosen');
+      }
     } else {
       setError('');
 
@@ -117,10 +94,12 @@ function RockPaperScissors() {
       </h4>
       <div className='input-wrapper'>
         <div>
-          <input type='file' accept='.txt' onChange={handleChange} />
-          <button onClick={calculateScore} disabled={error}>
-            Calculate score
-          </button>
+          <FileUploader
+            calculateAnswer={calculateScore}
+            calculateAnswerBtnText='Calculate score'
+            fileContent={(content) => setFileContent(content)}
+            setError={(text) => setError(text)}
+          />
         </div>
       </div>
       {firstAnswer ? (

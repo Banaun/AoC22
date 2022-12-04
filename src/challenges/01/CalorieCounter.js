@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import FileUploader from '../../components/FileUploader';
 
 function CalorieCounter() {
   const [fileContent, setFileContent] = useState();
@@ -6,35 +7,11 @@ function CalorieCounter() {
   const [secondAnswer, setSecondAnswer] = useState(0);
   const [error, setError] = useState('');
 
-  const textType = /text.*/;
-
-  let fileReader;
-
-  const handleChange = (e) => {
-    let file = e.target.files[0];
-    fileReader = new FileReader();
-    fileReader.onloadend = handleFileRead;
-
-    if (file.size < 100000) {
-      if (file.type.match(textType)) {
-        setError('');
-        fileReader.readAsText(file);
-      } else {
-        setError('Invalid file type!');
-      }
-    } else {
-      setError('File is too big!');
-    }
-  };
-
-  const handleFileRead = () => {
-    let content = fileReader.result;
-    setFileContent(content);
-  };
-
   const countCalories = () => {
     if (!fileContent) {
-      setError('No file chosen');
+      if (!error) {
+        setError('No file chosen');
+      }
     } else {
       setError('');
 
@@ -76,10 +53,12 @@ function CalorieCounter() {
       </h4>
       <div className='input-wrapper'>
         <div>
-          <input type='file' accept='.txt' onChange={handleChange} />
-          <button onClick={countCalories} disabled={error}>
-            Count calories
-          </button>
+          <FileUploader
+            calculateAnswer={countCalories}
+            calculateAnswerBtnText='Calculate calories'
+            fileContent={(content) => setFileContent(content)}
+            setError={(text) => setError(text)}
+          />
         </div>
       </div>
       {firstAnswer ? (

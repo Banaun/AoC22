@@ -1,12 +1,11 @@
 import { useState } from 'react';
+import FileUploader from '../../components/FileUploader';
 
 function RucksackReorganization() {
   const [fileContent, setFileContent] = useState();
   const [firstAnswer, setFirstAnswer] = useState(0);
   const [secondAnswer, setSecondAnswer] = useState(0);
   const [error, setError] = useState('');
-
-  const textType = /text.*/;
 
   const priorities = {
     a: 1,
@@ -63,25 +62,6 @@ function RucksackReorganization() {
     Z: 52,
   };
 
-  let fileReader;
-
-  const handleChange = (e) => {
-    let file = e.target.files[0];
-    fileReader = new FileReader();
-    fileReader.onloadend = handleFileRead;
-
-    if (file.size < 100000) {
-      if (file.type.match(textType)) {
-        setError('');
-        fileReader.readAsText(file);
-      } else {
-        setError('Invalid file type!');
-      }
-    } else {
-      setError('File is too big!');
-    }
-  };
-
   const split = (str) => {
     const result = [str.slice(0, str.length / 2), str.slice(str.length / 2)];
 
@@ -90,7 +70,9 @@ function RucksackReorganization() {
 
   const calculateSumOfPriorities = () => {
     if (!fileContent) {
-      setError('No file chosen');
+      if (!error) {
+        setError('No file chosen');
+      }
     } else {
       setError('');
 
@@ -133,11 +115,6 @@ function RucksackReorganization() {
     }
   };
 
-  const handleFileRead = () => {
-    let content = fileReader.result;
-    setFileContent(content);
-  };
-
   return (
     <>
       <h4>
@@ -148,12 +125,12 @@ function RucksackReorganization() {
         <a href='/puzzle-inputs/03/input03.txt'>puzzle input</a>
       </h4>
       <div className='input-wrapper'>
-        <div>
-          <input type='file' accept='.txt' onChange={handleChange} />
-          <button onClick={calculateSumOfPriorities} disabled={error}>
-            Calculate sum
-          </button>
-        </div>
+        <FileUploader
+          calculateAnswer={calculateSumOfPriorities}
+          calculateAnswerBtnText='Calculate sum'
+          fileContent={(content) => setFileContent(content)}
+          setError={(text) => setError(text)}
+        />
       </div>
       {firstAnswer ? (
         <div className='output-wrapper'>
