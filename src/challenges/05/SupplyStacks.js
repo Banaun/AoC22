@@ -24,35 +24,112 @@ function SupplyStacks() {
     return { quantity, start, end };
   };
 
+  const prepareMove = (move, multiple = false) => {
+    let moving = [];
+
+    switch (move.start) {
+      case 1:
+        moving = stackOne.splice(0, move.quantity);
+        break;
+      case 2:
+        moving = stackTwo.splice(0, move.quantity);
+        break;
+      case 3:
+        moving = stackThree.splice(0, move.quantity);
+        break;
+      case 4:
+        moving = stackFour.splice(0, move.quantity);
+        break;
+      case 5:
+        moving = stackFive.splice(0, move.quantity);
+        break;
+      case 6:
+        moving = stackSix.splice(0, move.quantity);
+        break;
+      case 7:
+        moving = stackSeven.splice(0, move.quantity);
+        break;
+      case 8:
+        moving = stackEight.splice(0, move.quantity);
+        break;
+      case 9:
+        moving = stackNine.splice(0, move.quantity);
+        break;
+      default:
+        console.log('default case');
+        break;
+    }
+
+    if (!multiple) {
+      makeMove(moving, move.end);
+    } else {
+      makeMultipleMove(moving, move.end);
+    }
+  };
+
   const makeMove = (elementArr, to) => {
-    console.log(elementArr, to);
     switch (to) {
-      case '1':
-        console.log('case 1');
+      case 1:
+        elementArr.map((el) => stackOne.unshift(el));
         break;
-      case '2':
-        console.log('case 2');
+      case 2:
+        elementArr.map((el) => stackTwo.unshift(el));
         break;
-      case '3':
-        console.log('case 3');
+      case 3:
+        elementArr.map((el) => stackThree.unshift(el));
         break;
-      case '4':
-        console.log('case 4');
+      case 4:
+        elementArr.map((el) => stackFour.unshift(el));
         break;
-      case '5':
-        console.log('case 5');
+      case 5:
+        elementArr.map((el) => stackFive.unshift(el));
         break;
-      case '6':
-        console.log('case 6');
+      case 6:
+        elementArr.map((el) => stackSix.unshift(el));
         break;
-      case '7':
-        console.log('case 7');
+      case 7:
+        elementArr.map((el) => stackSeven.unshift(el));
         break;
-      case '8':
-        console.log('case 8');
+      case 8:
+        elementArr.map((el) => stackEight.unshift(el));
         break;
-      case '9':
-        console.log('case 9');
+      case 9:
+        elementArr.map((el) => stackNine.unshift(el));
+        break;
+      default:
+        console.log('default case');
+        break;
+    }
+  };
+
+  const makeMultipleMove = (elementArr, to) => {
+    switch (to) {
+      case 1:
+        stackOne = [...elementArr, ...stackOne];
+        break;
+      case 2:
+        stackTwo = [...elementArr, ...stackTwo];
+        break;
+      case 3:
+        stackThree = [...elementArr, ...stackThree];
+        break;
+      case 4:
+        stackFour = [...elementArr, ...stackFour];
+        break;
+      case 5:
+        stackFive = [...elementArr, ...stackFive];
+        break;
+      case 6:
+        stackSix = [...elementArr, ...stackSix];
+        break;
+      case 7:
+        stackSeven = [...elementArr, ...stackSeven];
+        break;
+      case 8:
+        stackEight = [...elementArr, ...stackEight];
+        break;
+      case 9:
+        stackNine = [...elementArr, ...stackNine];
         break;
       default:
         console.log('default case');
@@ -61,6 +138,16 @@ function SupplyStacks() {
   };
 
   const separateStacks = (input) => {
+    stackOne = [];
+    stackTwo = [];
+    stackThree = [];
+    stackFour = [];
+    stackFive = [];
+    stackSix = [];
+    stackSeven = [];
+    stackEight = [];
+    stackNine = [];
+
     for (let i = 0; i < input.length; i++) {
       if (input[i].startsWith('[')) {
         stackOne.push(input[i].substring(0, 3));
@@ -104,50 +191,45 @@ function SupplyStacks() {
       const stacksArr = stacks.split(/\r?\n/);
       const instructionsArr = instructions.split(/\r?\n/);
 
+      // Part 1
+      separateStacks(stacksArr);
+
+      for (let i = 0; i < instructionsArr.length; i++) {
+        const move = parseMove(instructionsArr[i]);
+        prepareMove(move);
+      }
+
+      setFirstAnswer(
+        stackOne[0].charAt(1) +
+          stackTwo[0].charAt(1) +
+          stackThree[0].charAt(1) +
+          stackFour[0].charAt(1) +
+          stackFive[0].charAt(1) +
+          stackSix[0].charAt(1) +
+          stackSeven[0].charAt(1) +
+          stackEight[0].charAt(1) +
+          stackNine[0].charAt(1)
+      );
+
+      // Part 2
       separateStacks(stacksArr);
 
       for (let j = 0; j < instructionsArr.length; j++) {
-        console.log(instructionsArr[j]);
-
         const move = parseMove(instructionsArr[j]);
-
-        let moving = [];
-
-        switch (move.start) {
-          case 1:
-            console.log('case 1');
-            moving = stackOne.splice(0, move.quantity);
-            makeMove(moving, move.end);
-            break;
-          case 2:
-            console.log('case 2');
-            break;
-          case 3:
-            console.log('case 3');
-            break;
-          case 4:
-            console.log('case 4');
-            break;
-          case 5:
-            console.log('case 5');
-            break;
-          case 6:
-            console.log('case 6');
-            break;
-          case 7:
-            console.log('case 7');
-            break;
-          case 8:
-            console.log('case 8');
-            break;
-          case 9:
-            console.log('case 9');
-            break;
-          default:
-            console.log('default case');
-            break;
-        }
+        prepareMove(move, true);
       }
+
+      setSecondAnswer(
+        stackOne[0].charAt(1) +
+          stackTwo[0].charAt(1) +
+          stackThree[0].charAt(1) +
+          stackFour[0].charAt(1) +
+          stackFive[0].charAt(1) +
+          stackSix[0].charAt(1) +
+          stackSeven[0].charAt(1) +
+          stackEight[0].charAt(1) +
+          stackNine[0].charAt(1)
+      );
     }
   };
 
@@ -164,7 +246,7 @@ function SupplyStacks() {
         <div>
           <FileUploader
             calculateAnswer={rearrangeStacks}
-            calculateAnswerBtnText='Calculate calories'
+            calculateAnswerBtnText='Rearrange crates'
             fileContent={(content) => setFileContent(content)}
             setError={(text) => setError(text)}
           />
