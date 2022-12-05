@@ -40,6 +40,10 @@ button {
   align-items: center;
 }
 
+.inner-container {
+  padding-bottom: 2rem;
+}
+
 .day-container {
   margin-top: 2rem;
 }
