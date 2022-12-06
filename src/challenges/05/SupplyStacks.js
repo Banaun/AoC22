@@ -24,7 +24,7 @@ function SupplyStacks() {
     return { quantity, start, end };
   };
 
-  const prepareMove = (move, multiple = false) => {
+  const prepareMove = (move) => {
     let moving = [];
 
     switch (move.start) {
@@ -60,13 +60,10 @@ function SupplyStacks() {
         break;
     }
 
-    if (!multiple) {
-      makeMove(moving, move.end);
-    } else {
-      makeMultipleMove(moving, move.end);
-    }
+    return moving;
   };
 
+  // Part 1
   const makeMove = (elementArr, to) => {
     switch (to) {
       case 1:
@@ -102,6 +99,7 @@ function SupplyStacks() {
     }
   };
 
+  // Part 2
   const makeMultipleMove = (elementArr, to) => {
     switch (to) {
       case 1:
@@ -196,7 +194,10 @@ function SupplyStacks() {
 
       for (let i = 0; i < instructionsArr.length; i++) {
         const move = parseMove(instructionsArr[i]);
-        prepareMove(move);
+
+        const moving = prepareMove(move);
+
+        makeMove(moving, move.end);
       }
 
       setFirstAnswer(
@@ -216,7 +217,10 @@ function SupplyStacks() {
 
       for (let j = 0; j < instructionsArr.length; j++) {
         const move = parseMove(instructionsArr[j]);
-        prepareMove(move, true);
+
+        const moving = prepareMove(move, true);
+
+        makeMultipleMove(moving, move.end);
       }
 
       setSecondAnswer(
