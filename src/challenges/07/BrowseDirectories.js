@@ -1,19 +1,13 @@
 import { useState } from 'react';
 import FileUploader from '../../components/FileUploader';
 
-function TuningTrouble() {
+function BrowseDirectories() {
   const [fileContent, setFileContent] = useState();
   const [firstAnswer, setFirstAnswer] = useState(0);
   const [secondAnswer, setSecondAnswer] = useState(0);
   const [error, setError] = useState('');
 
-  let count = 0;
-
-  const hasRepeated = (marker) => {
-    return /(.).*\1/.test(marker);
-  };
-
-  const findMarker = () => {
+  const calculateDirSize = () => {
     if (!fileContent) {
       if (!error) {
         setError('No file chosen');
@@ -21,47 +15,40 @@ function TuningTrouble() {
     } else {
       setError('');
 
-      // Part 1
-      for (let i = 0; i < fileContent.length; i++) {
-        count += 1;
+      const commandsArr = fileContent.split(/\r?\n/);
+      const dirContentArr = fileContent.split(/\$ cd /);
 
-        if (!hasRepeated(fileContent.substring(i, i + 4))) {
-          console.log(count, fileContent.substring(i, i + 4));
-          break;
-        }
+      const allDirectories = commandsArr.filter((command) =>
+        command.startsWith('dir')
+      );
+
+      let dirToDelete = [];
+      let dirSize = 0;
+
+      for (let line in commandsArr) {
+        // console.log(commandsArr[line]);
+        const words = commandsArr[line].split(' ');
+
+        console.log(words);
       }
-
-      setFirstAnswer(count + 3);
-      count = 0;
-
-      // Part 2
-      for (let i = 0; i < fileContent.length; i++) {
-        count += 1;
-
-        if (!hasRepeated(fileContent.substring(i, i + 14))) {
-          console.log(count, fileContent.substring(i, i + 14));
-          break;
-        }
-      }
-      setSecondAnswer(count + 13);
-      count = 0;
+      //   console.log(dirContentArr);
     }
   };
 
   return (
     <>
       <h4>
-        See the <a href='/questions/06/question06.txt'>question</a>
+        See the <a href='/questions/07/question07.txt'>question</a>
       </h4>
       <h4>
         Upload a .txt-file with the{' '}
-        <a href='/puzzle-inputs/06/input06.txt'>puzzle input</a>
+        <a href='/puzzle-inputs/07/input07.txt'>puzzle input</a>
       </h4>
       <div className='input-wrapper'>
         <div>
           <FileUploader
-            calculateAnswer={findMarker}
-            calculateAnswerBtnText='Rearrange crates'
+            calculateAnswer={calculateDirSize}
+            calculateAnswerBtnText='Calculate directories'
             fileContent={(content) => setFileContent(content)}
             setError={(text) => setError(text)}
           />
@@ -83,4 +70,4 @@ function TuningTrouble() {
   );
 }
 
-export default TuningTrouble;
+export default BrowseDirectories;

@@ -4,6 +4,7 @@ import RucksackReorganization from './challenges/03/RucksackReorganization';
 import CampCleanup from './challenges/04/CampCleanup';
 import SupplyStacks from './challenges/05/SupplyStacks';
 import TuningTrouble from './challenges/06/TuningTrouble';
+import BrowseDirectories from './challenges/07/BrowseDirectories';
 import Snowflakes from './components/Snowflakes';
 import GitHubIcon from './images/github-icon.png';
 
@@ -45,6 +46,10 @@ function App() {
         <div className='day-container'>
           <h2 className='title'>--- Day 6: Tuning Trouble ---</h2>
           <TuningTrouble />
+        </div>
+        <div className='day-container'>
+          <h2 className='title'>--- Day 7: No Space Left On Device ---</h2>
+          <BrowseDirectories />
         </div>
       </div>
     </div>
